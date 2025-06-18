@@ -51,13 +51,6 @@ function App() {
     <div className="w-screen min-h-screen bg-slate-500 flex flex-col items-center p-6">
       {/* Cabeçalho Clerk */}
       <header className="w-full flex justify-end items-center mb-4">
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-      </header>
 
       <div className="w-[500px] space-y-4">
         <h1 className="text-3xl text-slate-100 font-bold text-center">Gerenciador de Tarefas</h1>
