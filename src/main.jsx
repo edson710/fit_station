@@ -17,7 +17,7 @@ if (!PUBLISHABLE_KEY) {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <LoginPage />,
   },
   {
     path: "/task",
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <App />,
   }
 ]);
 
