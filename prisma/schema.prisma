@@ -13,27 +13,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Usuario {
+  id      String   @id @default(uuid())
+  email   String   @unique
+  treinos Treino[]
+}
+
 model Treino {
   id         String      @id @default(uuid())
   nome       String
+  usuarioId  String
+  usuario    Usuario     @relation(fields: [usuarioId], references: [id])
   exercicios Exercicio[] // Relacionamento com os exercícios
   createdAt  DateTime    @default(now())
-  Descanso   Descanso[]
 }
 
 model Exercicio {
-  id        String   @id @default(uuid())
+  id        String     @id @default(uuid())
   nome      String
   imagemUrl String
+  cargaKg   Int?
+  series    Int?
   treinoId  String
-  treino    Treino   @relation(fields: [treinoId], references: [id])
-  createdAt DateTime @default(now())
+  treino    Treino     @relation(fields: [treinoId], references: [id])
+  descansos Descanso[]
+  createdAt DateTime   @default(now())
 }
 
 model Descanso {
-  id        String   @id @default(uuid())
-  duracao   Int // em segundos ou minutos
-  treinoId  String?
-  treino    Treino?  @relation(fields: [treinoId], references: [id])
-  createdAt DateTime @default(now())
+  id          String    @id @default(uuid())
+  duracaoSeg  Int // duração em segundos
+  vezesUsado  Int       @default(0)
+  exercicioId String
+  exercicio   Exercicio @relation(fields: [exercicioId], references: [id])
+  createdAt   DateTime  @default(now())
 }

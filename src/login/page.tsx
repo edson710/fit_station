@@ -32,31 +32,21 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 h-screen">
-      {/* Imagem do lado esquerdo */}
-      <div className="relative h-full w-full">
-        <img
-          src="/login.png"
-          alt="Faça login"
-          className="object-cover h-full w-full"
-        />
-      </div>
+    <div
+      className="h-screen w-screen bg-cover bg-center flex flex-col justify-center items-center"
+      style={{ backgroundImage: "url('/login.png')" }}
+    >
 
       {/* Formulário de login do lado direito */}
-      <div className="flex flex-col justify-center items-center bg-gray-100">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">
-          Bem-vindo de volta!
-        </h1>
-        <SignInButton>
-          <span className="text-blue-500 hover:underline cursor-pointer">
-            Entre ou crie uma conta
-          </span>
-        </SignInButton>
-        
-        {/* Ou, se quiser apenas um link de registro: */}
-        {/* <a href="/register" className="text-blue-500 hover:underline">
-          Entre ou crie uma conta
-        </a> */}
+      <div className="h-screen w-screen bg-cover bg-center flex flex-col justify-center items-center" style={{ backgroundImage: "url('/login.png')" }}>
+        <div className="bg-white bg-opacity-80 p-10 rounded-md shadow-md text-center">
+          <h1 className="text-3xl font-bold mb-6 text-gray-800">Bem-vindo de volta!</h1>
+          <SignInButton>
+            <span className="text-blue-500 hover:underline cursor-pointer">
+              Entre ou crie uma conta
+            </span>
+          </SignInButton>
+        </div>
       </div>
     </div>
   );

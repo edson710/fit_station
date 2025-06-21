@@ -1,68 +1,46 @@
-import Tasks from "./components/tasks";
-import AddTask from "./components/AddTask";
+import Treinos from "./components/Treinos";
+import AddTreino from "./components/AddTreino";
 import './index.css';
 import { useState, useEffect } from "react";
 import { v4 } from "uuid";
 
 function App() {
-  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")) || []);
+  const [treinos, setTreinos] = useState(JSON.parse(localStorage.getItem("treinos")) || []);
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+    localStorage.setItem("treinos", JSON.stringify(treinos));
+  }, [treinos]);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const response = await fetch("https://jsonplaceholder.typicode.com/todos?_limit=10", {
-        method: "GET",
-      });
-      const data = await response.json();
-      setTasks(data);
-    };
-    fetchTasks();
-  }, []);
-
-  function onTaskClick(taskId) {
-    const newTasks = tasks.map((task) => {
-      if (task.id === taskId) {
-        return { ...task, isCompleted: !task.isCompleted };
+  function onTreinoClick(treinoId) {
+    const atualizados = treinos.map(t => {
+      if (t.id === treinoId) {
+        return { ...t, iniciado: !t.iniciado };
       }
-      return task;
+      return t;
     });
-    setTasks(newTasks);
+    setTreinos(atualizados);
   }
 
-  function onTaskDelete(taskId) {
-    const newTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(newTasks);
+  function onTreinoDelete(treinoId) {
+    setTreinos(treinos.filter(t => t.id !== treinoId));
   }
 
-  function onAddTaskSubmit(title, description) {
-    const newTasks = {
+  function onAddTreinoSubmit(nome, exercicios) {
+    const novoTreino = {
       id: v4(),
-      title,
-      description,
-      isCompleted: false,
+      nome,
+      exercicios,
+      iniciado: false,
     };
-    setTasks([...tasks, newTasks]);
+    setTreinos([...treinos, novoTreino]);
   }
 
   return (
     <div className="w-screen min-h-screen bg-slate-500 flex flex-col items-center p-6">
-      {/* Cabeçalho Clerk */}
-      <header className="w-full flex justify-end items-center mb-4">
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-      </header>
-
       <div className="w-[500px] space-y-4">
-        <h1 className="text-3xl text-slate-100 font-bold text-center">Gerenciador de Tarefas</h1>
-        <AddTask onAddTaskSubmit={onAddTaskSubmit} />
-        <Tasks tasks={tasks} onTaskClick={onTaskClick} onDeleteTaskClick={onTaskDelete} />
+        <h1 className="text-3xl text-white font-bold text-center">Meus Treinos</h1>
+        <AddTreino onAddTreinoSubmit={onAddTreinoSubmit} />
+        <Treinos treinos={treinos} onTreinoClick={onTreinoClick} onDeleteTreinoClick={onTreinoDelete} />
       </div>
     </div>
   );
